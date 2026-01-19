@@ -10,6 +10,7 @@ venv/
 
 # FastAPI uploads (optionnel)
 uploads/
+tests/*.jpg
 
 # OS
 .DS_Store

@@ -17,14 +17,25 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Installer pytest et httpx pour les tests
+RUN pip install pytest httpx
+
 # Copier le code
 COPY app/ ./app
+COPY tests/ ./tests
 
 # Créer le dossier uploads
 RUN mkdir uploads
+
+# Définir PYTHONPATH pour que Python trouve le module 'app'
+ENV PYTHONPATH=/app
 
 # Exposer le port FastAPI
 EXPOSE 8000
 
 # Commande pour lancer l'API
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+# Commande optionnelle pour tests
+# On peut l'exécuter via: docker run --rm images-api pytest
